@@ -67,12 +67,14 @@ func main() {
 	}
 	logger.Error("-- post apt.Setup() --")
 
+	logger.Error("-- New supplier --")
 	supplier := supply.New(stager, a, logger)
-
+	logger.Error("-- pre supplier.Run() --")
 	if err := supplier.Run(); err != nil {
 		logger.Error("Error running supply: %s", err.Error())
 		os.Exit(14)
 	}
+	logger.Error("-- post supplier.Run() --")
 
 	if err := stager.WriteConfigYml(nil); err != nil {
 		logger.Error("Error writing config.yml: %s", err.Error())
