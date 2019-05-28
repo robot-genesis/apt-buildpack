@@ -197,6 +197,9 @@ func (a *Apt) Update() error {
 	fmt.Println("-- APT Update --")
 	fmt.Println("args: ")
 	fmt.Println(args)
+        fmt.Println("BUILD_DIR: %s", os.Args[1:])
+	fmt.Println("CACHE_DIR: %s", os.Args[2:])
+	fmt.Println("DEPS_DIR: %s", os.Args[3:])
 	if out, err := a.command.Output("/", "apt-get", args...); err != nil {
 		return fmt.Errorf("failed to apt-get update %s\n\n%s", out, err)
 	}
