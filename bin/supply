@@ -6,6 +6,11 @@ CACHE_DIR=$2
 DEPS_DIR=$3
 DEPS_IDX=$4
 
+echo ${BUILD_DIR}
+echo ${CACHE_DIR}
+echo ${DEPS_DIR}
+echo ${DEPS_IDX}
+
 export BUILDPACK_DIR=`dirname $(readlink -f ${BASH_SOURCE%/*})`
 source "$BUILDPACK_DIR/scripts/install_go.sh"
 output_dir=$(mktemp -d -t supplyXXX)
@@ -14,5 +19,10 @@ echo "-----> Running go build supply"
 pushd $BUILDPACK_DIR
 GOROOT=$GoInstallDir/go $GoInstallDir/go/bin/go build -mod=vendor -o $output_dir/supply ./src/apt/supply/cli
 popd
+
+echo ${BUILD_DIR}
+echo ${CACHE_DIR}
+echo ${DEPS_DIR}
+echo ${DEPS_IDX}
 
 $output_dir/supply "$BUILD_DIR" "$CACHE_DIR" "$DEPS_DIR" "$DEPS_IDX"
