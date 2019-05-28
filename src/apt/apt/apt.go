@@ -67,6 +67,8 @@ func New(command Command, aptFile, rootDir, cacheDir, installDir string) *Apt {
 	aptCacheDir := filepath.Join(cacheDir, "apt", "cache")
 	stateDir := filepath.Join(cacheDir, "apt", "state")
 
+	logger.Error("APT CACHE_DIR: %s", aptCacheDir)
+
 	return &Apt{
 		command:     command,
 		aptFilePath: aptFile,
@@ -90,6 +92,8 @@ func New(command Command, aptFile, rootDir, cacheDir, installDir string) *Apt {
 }
 
 func (a *Apt) Setup() error {
+	logger.Error("APT SETUP START")
+
 	if err := os.MkdirAll(a.cacheDir, os.ModePerm); err != nil {
 		return err
 	}
@@ -130,7 +134,7 @@ func (a *Apt) Setup() error {
 			return err
 		}
 	}
-
+	logger.Error("APT SETUP END")
 	return libbuildpack.NewYAML().Load(a.aptFilePath, a)
 }
 
