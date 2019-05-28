@@ -58,14 +58,14 @@ func main() {
 
 	command := &libbuildpack.Command{}
 	logger.Error("CACHE_DIR: %s", stager.CacheDir())
-	fmt.Println("-- New apt --")
+	logger.Error("-- New apt --")
 	a := apt.New(command, filepath.Join(stager.BuildDir(), "apt.yml"), "/etc/apt", stager.CacheDir(), filepath.Join(stager.DepDir(), "apt"))
-	fmt.Println("-- pre apt.Setup() --")
+	logger.Error("-- pre apt.Setup() --")
 	if err := a.Setup(); err != nil {
 		logger.Error("Unable to initialize apt package: %s", err.Error())
 		os.Exit(13)
 	}
-	fmt.Println("-- post apt.Setup() --")
+	logger.Error("-- post apt.Setup() --")
 
 	supplier := supply.New(stager, a, logger)
 
