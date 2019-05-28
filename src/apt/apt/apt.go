@@ -194,6 +194,9 @@ func (a *Apt) AddRepos() error {
 
 func (a *Apt) Update() error {
 	args := append(a.options, "update")
+	fmt.Println("-- APT Update --")
+	fmt.Println("args: ")
+	fmt.Println(args)
 	if out, err := a.command.Output("/", "apt-get", args...); err != nil {
 		return fmt.Errorf("failed to apt-get update %s\n\n%s", out, err)
 	}
